@@ -166,8 +166,8 @@ async function run() {
     const removeCanary = getInput("remove_canary");
     const helm = getInput("helm") || "helm";
     const timeout = getInput("timeout");
-    const debug = getInput("debug");
-    const wait = getInput("wait");
+    const debug = getInput("debug") || false;
+    const wait = getInput("wait") || false;
     const repository = getInput("repository");
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
@@ -192,7 +192,6 @@ async function run() {
     core.debug(`param: debug = "${debug}"`);
     core.debug(`param: wait = "${wait}"`);
 
-
     // Setup command options and arguments.
     const args = [
       "upgrade",
@@ -214,14 +213,15 @@ async function run() {
       process.env.HELM_HOME = "/root/.helm/"
     }
 
-    if (wait) args.push("--wait");
-    if (debug) args.push("--debug");
     if (dryRun) args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
     if (chartVersion) args.push(`--version=${chartVersion}`);
     if (timeout) args.push(`--timeout=${timeout}`);
     if (repository) args.push(`--repo=${repository}`);
+    if (wait === true) args.push("--wait");
+    if (debug === true) args.push("--debug");
+
     valueFiles.forEach(f => args.push(`--values=${f}`));
     args.push("--values=./values.yml");
 
