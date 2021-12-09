@@ -198,10 +198,14 @@ async function run() {
       "upgrade",
       release,
       chart,
-      "--install",
-      "--debug",
-      `--namespace=${namespace}`,
+      "--install"
     ];
+
+    if (wait) args.push(`--wait`);
+
+    args.push("--debug");
+    args.push(`--namespace=${namespace}`);
+
 
     // Per https://helm.sh/docs/faq/#xdg-base-directory-support
     if (helm === "helm3") {
@@ -214,7 +218,6 @@ async function run() {
       process.env.HELM_HOME = "/root/.helm/"
     }
 
-    if (wait) args.push(`--wait`);
     if (dryRun) args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
