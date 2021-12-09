@@ -166,6 +166,7 @@ async function run() {
     const removeCanary = getInput("remove_canary");
     const helm = getInput("helm") || "helm";
     const timeout = getInput("timeout");
+    const debug = getInput("debug");
     const repository = getInput("repository");
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
@@ -187,6 +188,7 @@ async function run() {
     core.debug(`param: timeout = "${timeout}"`);
     core.debug(`param: repository = "${repository}"`);
     core.debug(`param: atomic = "${atomic}"`);
+    core.debug(`param: debug = "${debug}"`);
 
 
     // Setup command options and arguments.
@@ -196,6 +198,7 @@ async function run() {
       chart,
       "--install",
       "--wait",
+      "--debug",
       `--namespace=${namespace}`,
     ];
 
@@ -210,6 +213,7 @@ async function run() {
       process.env.HELM_HOME = "/root/.helm/"
     }
 
+    if (debug) args.push("--debug");
     if (dryRun) args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
