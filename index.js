@@ -204,6 +204,8 @@ async function run() {
       process.env.XDG_DATA_HOME = "/root/.helm/"
       process.env.XDG_CACHE_HOME = "/root/.helm/"
       process.env.XDG_CONFIG_HOME = "/root/.helm/"
+
+      args.push("--create-namespace");
     } else {
       process.env.HELM_HOME = "/root/.helm/"
     }
