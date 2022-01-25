@@ -198,7 +198,6 @@ async function run() {
       release,
       chart,
       "--install",
-      "--debug",
       `--namespace=${namespace}`,
     ];
 
