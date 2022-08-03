@@ -166,8 +166,8 @@ async function run() {
     const removeCanary = getInput("remove_canary");
     const helm = getInput("helm") || "helm";
     const timeout = getInput("timeout");
-    const debug = getInput("debug") || false;
-    const wait = getInput("wait") || false;
+    const debug = core.getInput("debug");
+    const wait = core.getInput("wait");
     const repository = getInput("repository");
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
@@ -218,8 +218,8 @@ async function run() {
     if (chartVersion) args.push(`--version=${chartVersion}`);
     if (timeout) args.push(`--timeout=${timeout}`);
     if (repository) args.push(`--repo=${repository}`);
-    if (wait === true) args.push("--wait");
-    if (debug === true) args.push("--debug");
+    if (wait) args.push("--wait");
+    if (debug) args.push("--debug");
 
     valueFiles.forEach(f => args.push(`--values=${f}`));
     args.push("--values=./values.yml");
