@@ -54,6 +54,10 @@ inputs:
   wait:
     description: If set, will wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. It will wait for as long as --timeout
     required: false
+  force:
+    description: force resource updates through a replacement strategy
+    required: false
+
 runs:
   using: docker
   image: Dockerfile
