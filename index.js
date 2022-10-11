@@ -172,6 +172,7 @@ async function run() {
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
     const atomic = getInput("atomic") || true;
+    const force = getInput("force");
 
     core.debug(`param: track = "${track}"`);
     core.debug(`param: release = "${release}"`);
@@ -191,6 +192,7 @@ async function run() {
     core.debug(`param: atomic = "${atomic}"`);
     core.debug(`param: debug = "${debug}"`);
     core.debug(`param: wait = "${wait}"`);
+    core.debug(`param: force = "${force}"`);
 
     // Setup command options and arguments.
     const args = [
@@ -220,6 +222,7 @@ async function run() {
     if (repository) args.push(`--repo=${repository}`);
     if (wait) args.push("--wait");
     if (debug) args.push("--debug");
+    if (force) args.push("--force");
 
     valueFiles.forEach(f => args.push(`--values=${f}`));
     args.push("--values=./values.yml");
