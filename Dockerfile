@@ -1,4 +1,4 @@
-FROM alpine:3.17.2
+FROM us-east4-docker.pkg.dev/trading-dev-201715/baseimages/alpine:3.17.2
 
 ENV BASE_URL="https://get.helm.sh"
 
