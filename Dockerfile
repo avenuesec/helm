@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/alpine:3.17.2
+FROM us-east4-docker.pkg.dev/trading-dev-201715/baseimage/alpine:3.17.2
 
 ENV BASE_URL="https://get.helm.sh"
 
